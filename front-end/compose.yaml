@@ -5,6 +5,6 @@ services:
       dockerfile: Dockerfile
       args: ["PORT=${PORT}"]
     env_file: [".env"]
-    ports: ["${PORT}:${PORT}"]
+    ports: ["127.0.0.1:${PORT}:${PORT}"]
     restart: always
     depends_on: [app]

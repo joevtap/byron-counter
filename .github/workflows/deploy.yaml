@@ -1,0 +1,26 @@
+name: Deploy on Digital Ocean Droplet
+run-name: ${{ github.actor }} is deploying to production environment
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  ssh-into-droplet-and-deploy-changes:
+    name: SSH into droplet and deploy changes
+    runs-on: ubuntu-22.04
+    steps:
+      - name: SSH into droplet
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: root
+          password: ${{secrets.PASSWORD}}
+          port: ${{ secrets.PORT }}
+          script_stop: true
+          script: |
+            cd /home/secomp-2024-backend
+            git checkout staging
+            git pull
+            docker compose down
+            docker compose up -d --build --force-recreate --remove-orphans

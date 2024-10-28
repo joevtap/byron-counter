@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args: ["APP_PORT=${APP_PORT}"]
-    ports: ["${APP_PORT}:${APP_PORT}"]
+    ports: ["127.0.0.1:${APP_PORT}:${APP_PORT}"]
     env_file: [.env]
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${PGPORT}/${POSTGRES_USER}?schema=public"
@@ -24,7 +24,7 @@ services:
     image: postgres:16.2
     restart: always
     env_file: [.env]
-    ports: ["${PGPORT}:${PGPORT}"]
+    ports: ["127.0.0.1:${PGPORT}:${PGPORT}"]
     volumes: ["pgdata:/var/lib/postgresql/data"]
 
 volumes:
