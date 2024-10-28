@@ -25,4 +25,7 @@ services:
     restart: always
     env_file: [.env]
     ports: ["${PGPORT}:${PGPORT}"]
-    volumes: ["./pgdata:/var/lib/postgresql/data"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+volumes:
+  pgdata:
